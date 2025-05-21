@@ -150,6 +150,19 @@ public class MLRNMapView extends MapView implements OnMapReadyCallback, MapLibre
 
     private @Nullable Integer mTintColor = null;
 
+    private String mReactMapStyle;
+    private String mReactMapToken;
+    private boolean mReactZoomEnabled = true;
+    private boolean mReactScrollEnabled = true;
+    private boolean mReactPitchEnabled = true;
+    private boolean mReactRotateEnabled = true;
+    private boolean mReactAttributionEnabled = true;
+    private boolean mReactLogoEnabled = false;
+    private ReadableMap mReactAttributionPosition;
+    private ReadableMap mReactLogoPosition;
+    private boolean mReactLocalizeLabels = false;
+    private int mReactPreferredFramesPerSecond = 0;
+
     public MLRNMapView(Context context, MLRNMapViewManager manager, MapLibreMapOptions options) {
         super(context, options);
 
@@ -775,26 +788,17 @@ public class MLRNMapView extends MapView implements OnMapReadyCallback, MapLibre
     }
 
     public void setReactMapStyle(String mapStyle) {
-        mMapStyle = mapStyle;
-
+        mReactMapStyle = mapStyle;
         if (mMap != null) {
-            removeAllSourcesFromMap();
+            mMap.setStyle(new Style.Builder().fromUri(mReactMapStyle));
+        }
+    }
 
-            if (isJSONValid(mMapStyle)) {
-                mMap.setStyle(new Style.Builder().fromJson(mMapStyle), new Style.OnStyleLoaded() {
-                    @Override
-                    public void onStyleLoaded(@NonNull Style style) {
-                        addAllSourcesToMap();
-                    }
-                });
-            } else {
-                mMap.setStyle(mapStyle, new Style.OnStyleLoaded() {
-                    @Override
-                    public void onStyleLoaded(@NonNull Style style) {
-                        addAllSourcesToMap();
-                    }
-                });
-            }
+    public void setReactMapToken(String mapToken) {
+        mReactMapToken = mapToken;
+        if (mMap != null && mReactMapStyle != null) {
+            String fullUrl = "https://gateway.mapmetrics.org/styles/?" + mReactMapStyle + "&token=" + mReactMapToken;
+            mMap.setStyle(new Style.Builder().fromUri(fullUrl));
         }
     }
 

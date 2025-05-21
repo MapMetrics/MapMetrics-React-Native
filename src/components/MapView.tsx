@@ -59,7 +59,7 @@ type VisibleBounds = [northEast: GeoJSON.Position, southWest: GeoJSON.Position];
 
 interface MapViewProps extends BaseProps {
   /**
-   * The distance from the edges of the map view’s frame to the edges of the map view’s logical viewport.
+   * The distance from the edges of the map view's frame to the edges of the map view's logical viewport.
    */
   contentInset?: number[] | number;
   /**
@@ -68,20 +68,25 @@ interface MapViewProps extends BaseProps {
   style?: ViewProps["style"];
   /**
    * Style for map - either a URL or a Style JSON (https://maplibre.org/maplibre-style-spec/). Default: `StyleURL.Default`
+   * If mapToken is provided, this should be the style name/path without the token.
    */
   mapStyle?: string | object;
+  /**
+   * Token for accessing the map style. If provided, it will be combined with mapStyle to form the full URL.
+   */
+  mapToken?: string;
   /**
    * iOS: The preferred frame rate at which the map view is rendered.
    * The default value for this property is MLNMapViewPreferredFramesPerSecondDefault,
    * which will adaptively set the preferred frame rate based on the capability of
-   * the user’s device to maintain a smooth experience. This property can be set to arbitrary integer values.
+   * the user's device to maintain a smooth experience. This property can be set to arbitrary integer values.
    *
    * Android: The maximum frame rate at which the map view is rendered, but it can't excess the ability of device hardware.
    * This property can be set to arbitrary integer values.
    */
   preferredFramesPerSecond?: number;
   /**
-   * Automatically change the language of the map labels to the system’s preferred language,
+   * Automatically change the language of the map labels to the system's preferred language,
    * this is not something that can be toggled on/off
    */
   localizeLabels?: boolean;
@@ -245,6 +250,7 @@ type CallableProps = {
 
 interface NativeProps extends Omit<MapViewProps, "onPress" | "onLongPress"> {
   mapStyle?: string;
+  mapToken?: string;
   onPress(event: NativeSyntheticEvent<{ payload: GeoJSON.Feature }>): void;
   onLongPress(event: NativeSyntheticEvent<{ payload: GeoJSON.Feature }>): void;
 }
@@ -324,7 +330,7 @@ export const MapView = memo(
            */
           getCoordinateFromView,
           /**
-           * The coordinate bounds(ne, sw) visible in the users’s viewport.
+           * The coordinate bounds(ne, sw) visible in the users's viewport.
            *
            * @example
            * const visibleBounds = await this._map.getVisibleBounds();
@@ -338,7 +344,7 @@ export const MapView = memo(
            * @example
            * this._map.queryRenderedFeaturesAtPoint([30, 40], ['==', 'type', 'Point'], ['id1', 'id2'])
            *
-           * @param  {number[]} coordinate - A point expressed in the map view’s coordinate system.
+           * @param  {number[]} coordinate - A point expressed in the map view's coordinate system.
            * @param  {Array=} filter - A set of strings that correspond to the names of layers defined in the current style. Only the features contained in these layers are included in the returned array.
            * @param  {Array=} layerIDs - A array of layer id's to filter the features by
            * @return {GeoJSON.FeatureCollection}
@@ -351,7 +357,7 @@ export const MapView = memo(
            * @example
            * this._map.queryRenderedFeaturesInRect([30, 40, 20, 10], ['==', 'type', 'Point'], ['id1', 'id2'])
            *
-           * @param  {number[]} bbox - A rectangle expressed in the map view’s coordinate system.
+           * @param  {number[]} bbox - A rectangle expressed in the map view's coordinate system.
            * @param  {Array=} filter - A set of strings that correspond to the names of layers defined in the current style. Only the features contained in these layers are included in the returned array.
            * @param  {Array=} layerIDs -  A array of layer id's to filter the features by
            * @return {GeoJSON.FeatureCollection}
@@ -772,12 +778,17 @@ export const MapView = memo(
       };
 
       const nativeProps = useMemo(() => {
-        const { mapStyle, ...otherProps } = props;
+        const { mapStyle, mapToken, ...otherProps } = props;
 
         let nativeMapStyle = undefined;
         if (mapStyle) {
           if (typeof mapStyle === "string") {
-            nativeMapStyle = mapStyle;
+            if (mapToken) {
+              // If both mapStyle and mapToken are provided, construct the full URL
+              nativeMapStyle = `https://gateway.mapmetrics.org/styles/?${mapStyle}&token=${mapToken}`;
+            } else {
+              nativeMapStyle = mapStyle;
+            }
           } else if (typeof mapStyle === "object") {
             nativeMapStyle = JSON.stringify(mapStyle);
           }

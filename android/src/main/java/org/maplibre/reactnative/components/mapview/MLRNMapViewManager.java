@@ -109,6 +109,11 @@ public class MLRNMapViewManager extends AbstractEventEmitter<MLRNMapView> {
         mapView.setReactMapStyle(mapStyle);
     }
 
+    @ReactProp(name="mapToken")
+    public void setMapToken(MLRNMapView mapView, String mapToken) {
+        mapView.setReactMapToken(mapToken);
+    }
+
     @ReactProp(name="preferredFramesPerSecond")
     public void setPreferredFramesPerSecond(MLRNMapView mapView, int preferredFramesPerSecond) {
         mapView.setReactPreferredFramesPerSecond(preferredFramesPerSecond);
