@@ -41,7 +41,7 @@ import javax.annotation.Nullable;
 public class MLRNModule extends ReactContextBaseJavaModule {
     public static final String REACT_CLASS = "MLRNModule";
 
-    public static final String DEFAULT_STYLE_URL = "https://gateway.mapmetrics.org/styles/?fileName=91cf50f5-e3cb-45d3-a1ab-f2f575f6c9b2/urbcalm.json&token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI5MWNmNTBmNS1lM2NiLTQ1ZDMtYTFhYi1mMmY1NzVmNmM5YjIiLCJzY29wZSI6WyJtYXBzIiwiYXV0b2NvbXBsZXRlIiwiZ2VvY29kZSJdLCJpYXQiOjE3NDcxNDE5OTB9.mAtqzwAPCcQhyEr45AgPaCFor4hePZu7tpoUrJUGwGs";
+    public static final String DEFAULT_STYLE_URL = "https://gateway.mapmetrics.org/styles/?fileName=91cf50f5-e3cb-45d3-a1ab-f2f575f6c9b2/urbcalm.json&token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.MapmetricsStyleURL .mAtqzwAPCcQhyEr45AgPaCFor4hePZu7tpoUrJUGwGs";
 
     private static boolean customHeaderInterceptorAdded = false;
 

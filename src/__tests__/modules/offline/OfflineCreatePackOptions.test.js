@@ -5,7 +5,7 @@ import { OfflineCreatePackOptions } from "../../../modules/offline/OfflineCreate
 describe("OfflineCreatePackOptions", () => {
   const options = {
     name: "test",
-    styleURL: "https://gateway.mapmetrics.org/styles/?fileName=91cf50f5-e3cb-45d3-a1ab-f2f575f6c9b2/urbcalm.json&token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI5MWNmNTBmNS1lM2NiLTQ1ZDMtYTFhYi1mMmY1NzVmNmM5YjIiLCJzY29wZSI6WyJtYXBzIiwiYXV0b2NvbXBsZXRlIiwiZ2VvY29kZSJdLCJpYXQiOjE3NDcxNDE5OTB9.mAtqzwAPCcQhyEr45AgPaCFor4hePZu7tpoUrJUGwGs",
+    styleURL: "https://gateway.mapmetrics.org/styles/?fileName=91cf50f5-e3cb-45d3-a1ab-f2f575f6c9b2/urbcalm.json&token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.MapmetricsStyleURL .mAtqzwAPCcQhyEr45AgPaCFor4hePZu7tpoUrJUGwGs",
     bounds: [
       [0, 1],
       [2, 3],

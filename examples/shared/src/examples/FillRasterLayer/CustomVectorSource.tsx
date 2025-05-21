@@ -18,7 +18,7 @@ export function CustomVectorSource() {
       <MapView style={sheet.matchParent}>
         <VectorSource
           id="maplibre-tiles"
-          url="https://gateway.mapmetrics.org/styles/?fileName=91cf50f5-e3cb-45d3-a1ab-f2f575f6c9b2/urbcalm.json&token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI5MWNmNTBmNS1lM2NiLTQ1ZDMtYTFhYi1mMmY1NzVmNmM5YjIiLCJzY29wZSI6WyJtYXBzIiwiYXV0b2NvbXBsZXRlIiwiZ2VvY29kZSJdLCJpYXQiOjE3NDcxNDE5OTB9.mAtqzwAPCcQhyEr45AgPaCFor4hePZu7tpoUrJUGwGs"
+          url="https://gateway.mapmetrics.org/styles/?fileName=91cf50f5-e3cb-45d3-a1ab-f2f575f6c9b2/urbcalm.json&token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.MapmetricsStyleURL .mAtqzwAPCcQhyEr45AgPaCFor4hePZu7tpoUrJUGwGs"
           ref={vectorSourceRef}
           onPress={(event) => {
             console.log(
